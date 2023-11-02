@@ -4,11 +4,12 @@ float angle;
 void setup() {
   size(1000, 800);
   noStroke();
-  colorMode(HSB);
+    colorMode(HSB);
 }
 
 void draw() {
   background(255);
+
   float x = width;
   float d = 110;
   int num = 100;
@@ -20,7 +21,7 @@ void draw() {
     for (int i = 0; i < num; i++) {
       scale(0.95);
       rotate(radians(angle));
-      fill(noise(1), i, a);
+      fill(200, i, a);
       ellipse(x, 0, d, d);
     }
     popMatrix();
