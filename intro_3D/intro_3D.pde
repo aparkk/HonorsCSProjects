@@ -2,6 +2,7 @@
 import peasy.*;
 
 int size = 200;
+int limit = 175;
 PeasyCam cam;
 
 void setup() {
@@ -10,6 +11,39 @@ void setup() {
     cam = new PeasyCam(this, 0, 0, 0, 500);
 }
 
+void drawParaboloid()  {
+  strokeWeight(2);
+  stroke(255);
+  
+  noFill();
+  
+  for(int x = -limit; x <= limit; x += 7) {
+    beginShape();
+    
+    for(int z = -limit; z <= limit; z += 7) {
+      float y = (x * x + z * z) / 125;
+      
+      if(y > limit) vertex(x * limit/y, -y * limit/y, z * limit/y);
+      else vertex(x, -y, z);
+    }
+    
+    endShape();
+  }
+  
+  for(int z = -limit; z <= limit; z += 7) {
+    beginShape();
+    
+    for(int x = -limit; x <= limit; x += 7) {
+      float y = (x * x + z * z) / 125;
+
+      if(y > limit) vertex(x * limit/y, -y * limit/y, z * limit/y);
+      else vertex(x, -y, z);
+    }
+    
+    endShape();
+  }
+  
+}
 
 void drawAxes() {
     strokeWeight(5);
@@ -21,10 +55,10 @@ void drawAxes() {
     line(-size, 0, 0, 0, 0, 0);
     
     stroke(0, 255, 0);
-    line(0, 0, 0, 0, -size, 0);
+    line(0, 0, 0, 0, size, 0);
     
     stroke(220, 255, 220);
-    line(0, size, 0, 0, 0, 0);
+    line(0, -size, 0, 0, 0, 0);
     
     stroke(0, 0, 255);
     line(0, 0, 0, 0, 0, size);
@@ -33,24 +67,38 @@ void drawAxes() {
     line(0, 0,-size, 0, 0, 0);
 }
 
-void drawGrid() {
-  strokeWeight(2);
+void drawGridXZ() {
+  strokeWeight(1);
   stroke(150);
   
-  beginShape(LINES);
-  for(int i = 20; i < 200; i += 20) {
-    vertex(i, 0, 0);
-    vertex(i, 0, size);
+  noFill();
+  
+  for(int x = 0; x < size; x += 7) {
+    beginShape();
+    
+    for(int z = 0; z <= size; z += 7)
+      vertex(x, 0, z);
+    vertex(x, 0, size);
+    
+    endShape();
   }
-  for(int i = 20; i < 200; i += 20) {
-    vertex(0, 0, i);
-    vertex(size, 0, i);
+  
+  for(int z = 0; z < size; z += 7) {
+    beginShape();
+    
+    for(int x = 0; x <= size; x += 7)
+      vertex(x, 0, z);
+    vertex(size, 0, z);
+    
+    endShape();
   }
-  endShape();
 }
 
 void draw() {
     background(0);
+    
     drawAxes();
-    drawGrid();
+    drawGridXZ();
+    
+    drawParaboloid();
 }
