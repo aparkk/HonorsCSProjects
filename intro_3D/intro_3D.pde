@@ -196,7 +196,7 @@ void draw() {
     drawAxes();
     drawGridXZ();
     
-    //drawParaboloid();
-    //drawHyperbolicParaboloid();
-    drawHyperboloid();
+    drawParaboloid();
+    drawHyperbolicParaboloid();
+    //drawHyperboloid();
 }
